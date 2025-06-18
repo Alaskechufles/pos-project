@@ -1,7 +1,8 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
+import { Products_Sales } from "../Products_Sales/Model.js";
 
-export class Product extends Model {}
+export class Sales extends Model {}
 
 /**
  * Configuración del campo id: 🚀
@@ -13,40 +14,28 @@ export class Product extends Model {}
  *   - **primaryKey**: true 🏷️
  *   - Define este campo como la clave primaria de la tabla. 🗂️
  */
-Product.init(
+Sales.init(
   {
     id: {
       type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
-      type: DataTypes.STRING,
+    total: {
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    price: {
-      type: DataTypes.DECIMAL(10, 2), // 10 digits total, 2 after the decimal point
-      allowNull: false,
-    },
-    stock: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0, // Default stock value
-    },
-    status: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true, // Default status is active
     }, 
   },
   {
     sequelize,
-    modelName: "product",
+    modelName: "sales",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
   }
 );
+
+Sales.hasMany(Products_Sales, {
+  foreignKey: "sale_id",
+  as: "sales_details",
+});

@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
 
-export class Product extends Model {}
+export class Products_Sales extends Model {}
 
 /**
  * Configuración del campo id: 🚀
@@ -13,40 +13,52 @@ export class Product extends Model {}
  *   - **primaryKey**: true 🏷️
  *   - Define este campo como la clave primaria de la tabla. 🗂️
  */
-Product.init(
+Products_Sales.init(
   {
     id: {
       type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
-      type: DataTypes.STRING,
+    sale_id: {
+      type: DataTypes.BIGINT,
       allowNull: false,
+      references: {
+        model: "sales", // Name of the referenced model
+        key: "id", // Key in the referenced model
+      },
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
+    product_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      references: {
+        model: "products", // Name of the referenced model
+        key: "id", // Key in the referenced model
+      },
     },
     price: {
-      type: DataTypes.DECIMAL(10, 2), // 10 digits total, 2 after the decimal point
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-    stock: {
+    amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0, // Default stock value
     },
-    status: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true, // Default status is active
-    }, 
+    total: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
   },
   {
     sequelize,
-    modelName: "product",
+    modelName: "products_sales",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
   }
 );
+
+Products_Sales.belongsTo(Products_Sales,{
+  foreignKey: "product_id",
+  as: "products",
+})
