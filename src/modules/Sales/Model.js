@@ -1,5 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
+import { Products_Sales } from "../Products_Sales/Model.js";
 
 export class Sales extends Model {}
 
@@ -33,3 +34,8 @@ Sales.init(
     updatedAt: "updated_at",
   }
 );
+
+Sales.hasMany(Products_Sales, {
+  foreignKey: "sale_id",
+  as: "sales_details",
+});

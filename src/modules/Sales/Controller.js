@@ -13,7 +13,9 @@ export const index = async (req, res, next) => {
     //#swagger.tags = ['Sales']
     //#swagger.description = 'Obtiene todos los sales activos.'
 
-    const sales = await Sales.findAll();
+    const sales = await Sales.findAll({
+      include: [{ association: "sales_details", include: ["products"] }],
+    });
     res.status(200).json(sales);
   } catch (error) {
     next(error);

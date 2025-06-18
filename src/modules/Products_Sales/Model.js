@@ -57,3 +57,8 @@ Products_Sales.init(
     updatedAt: "updated_at",
   }
 );
+
+Products_Sales.belongsTo(Products_Sales,{
+  foreignKey: "product_id",
+  as: "products",
+})
