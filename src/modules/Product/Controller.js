@@ -51,7 +51,7 @@ export const store = async (req, res, next) => {
   try {
     //#swagger.tags = ['Product']
     //#swagger.description = 'Crea un nuevo product.'
-
+    const { name, description, price, stock } = req.body;
     const product = await Product.create(req.body, {
       validate: true,
     });
@@ -75,7 +75,7 @@ export const update = async (req, res, next) => {
   try {
     //#swagger.tags = ['Product']
     //#swagger.description = 'Actualiza un product por id.'
-
+    const { name, description, price, stock } = req.body;
     const product = await Product.findByPk(req.params.id);
     if (!product) {
       throw { status: 404, message: "Product not found" };
