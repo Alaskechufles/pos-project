@@ -3,4 +3,6 @@ export const migrations = [
   "Product",
   "Sales", 
   "Products_Sales",
+  "Shopping",
+  "Products_Shopping",
 ];
