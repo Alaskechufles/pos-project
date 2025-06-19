@@ -5,4 +5,6 @@ export const migrations = [
   "Products_Sales",
   "Shopping",
   "Products_Shopping",
+  "Roles",
+  "Roles_Users",
 ];
